@@ -1,6 +1,8 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { validateSignInForm, validateSignUpForm } from '../utils/validate';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../utils/firebase';
 
 const Login = () => {
     const [isSignInForm, setIsSignInForm] = useState(true);
@@ -10,14 +12,63 @@ const Login = () => {
     const password = useRef(null)
     const cpassword = useRef(null)
     const handleToggleForm = () => {
+        if (isSignInForm) {
+            email.current.value = "";
+            password.current.value = "";
+        } else {
+            name.current.value = "";
+            email.current.value = "";
+            password.current.value = "";
+            cpassword.current.value = "";
+        }
         setIsSignInForm(!isSignInForm)
     }
     const handleSubmitForm = () => {
+        let isValid = true;
         if (isSignInForm) {
-            setErrMessage(validateSignInForm(email.current.value, password.current.value));
+            const error = validateSignInForm(email.current.value, password.current.value)
+            if (error) {
+                isValid = false
+            }
+            setErrMessage(error);
+            if (!isValid) return;
+            // sign in
+            signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("signed in user", user);
+                    email.current.value = "";
+                    password.current.value = "";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrMessage(errorCode + " : " + errorMessage)
+                });
+
         }
         else {
-            setErrMessage(validateSignUpForm(name.current.value, email.current.value, password.current.value, cpassword.current.value));
+            const error = validateSignUpForm(name.current.value, email.current.value, password.current.value, cpassword.current.value)
+            if (error) {
+                isValid = false
+            }
+            setErrMessage(error);
+            if (!isValid) return;
+            // sign up
+            createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+                .then((userCredential) => {
+                    const user = userCredential.user;
+                    console.log("signed up user", user);
+                    name.current.value = "";
+                    email.current.value = "";
+                    password.current.value = "";
+                    cpassword.current.value = "";
+                })
+                .catch((error) => {
+                    const errorCode = error.code;
+                    const errorMessage = error.message;
+                    setErrMessage(errorCode + " : " + errorMessage)
+                });
         }
     }
     return (
@@ -39,7 +90,7 @@ const Login = () => {
                 <input ref={password} className='p-3 m-2 bg-slate-700 rounded-sm' type="password" name="password" id="password" placeholder='Password' />
                 {
                     !isSignInForm &&
-                    <input ref={cpassword} className='p-3 m-2 bg-slate-700 rounded-sm' type="password" name="password" id="password" placeholder='Password' />
+                    <input ref={cpassword} className='p-3 m-2 bg-slate-700 rounded-sm' type="password" name="password" id="password" placeholder='Confirm Password' />
                 }
                 <p className='text-red-600 font-bold ml-2'>{errMessage}</p>
                 <button className='p-3 m-2 bg-red-700 rounded-md' onClick={handleSubmitForm}>
@@ -47,7 +98,7 @@ const Login = () => {
                         isSignInForm ? "Sign In" : "Sign Up"
                     }
                 </button>
-                <p onClick={handleToggleForm} className='m-2 cursor-pointer mb-4 text-gray-500'>
+                <p onClick={handleToggleForm} className='m-2 cursor-pointer mb-4'>
                     {
                         isSignInForm ? "New to Netflix? Sign up now." : "Already a member? Sign in now."
                     }

@@ -1,6 +1,6 @@
 export const validateSignInForm = (email, password) => {
     const validateEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email)
-    const validatePassword = password.length >= 8;
+    const validatePassword = password?.length >= 8;
     if (!validateEmail) return "Invalid Email address";
     if (!validatePassword) return "Email ID / Password is not correct";
     return null
