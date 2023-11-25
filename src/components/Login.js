@@ -1,10 +1,15 @@
 import React, { useRef, useState } from 'react'
 import Header from './Header'
 import { validateSignInForm, validateSignUpForm } from '../utils/validate';
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../utils/firebase';
+import { useDispatch } from 'react-redux';
+import { addUser } from '../utils/userSlice';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [isSignInForm, setIsSignInForm] = useState(true);
     const [errMessage, setErrMessage] = useState(null);
     const name = useRef(null)
@@ -36,9 +41,13 @@ const Login = () => {
             signInWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
+                    const { uid, photoURL, displayName } = user;
+                    const _email = auth.currentUser.email;
+                    dispatch(addUser({ uid: uid, displayName: displayName, email: _email, photoURL: photoURL }));
                     console.log("signed in user", user);
                     email.current.value = "";
                     password.current.value = "";
+                    navigate("/browse")
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -59,10 +68,21 @@ const Login = () => {
                 .then((userCredential) => {
                     const user = userCredential.user;
                     console.log("signed up user", user);
-                    name.current.value = "";
-                    email.current.value = "";
-                    password.current.value = "";
-                    cpassword.current.value = "";
+                    updateProfile(user, {
+                        displayName: name.current.value, photoURL: "https://occ-0-2186-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY20DrC9-11ewwAs6nfEgb1vrORxRPP9IGmlW1WtKuaLIz8VxCx5NryzDK3_ez064IsBGdXjVUT59G5IRuFdqZlCJCneepU.png?r=229"
+                    }).then(() => {
+                        const { uid, photoURL, displayName } = auth.currentUser;
+                        const _email = auth.currentUser.email;
+                        dispatch(addUser({ uid: uid, displayName: displayName, email: _email, photoURL: photoURL }));
+                        name.current.value = "";
+                        email.current.value = "";
+                        password.current.value = "";
+                        cpassword.current.value = "";
+                        navigate("/browse")
+                    }).catch((error) => {
+                        setErrMessage(error.message);
+                    });
+
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -72,11 +92,11 @@ const Login = () => {
         }
     }
     return (
-        <div className='relative bg-gradient-to-b from-black to-gray-900 flex justify-center'>
+        <div className='relative bg-gradient-to-b from-black to-gray-900 flex justify-center overflow-x-hidden'>
             <Header />
             <img className='opacity-60' src='https://assets.nflxext.com/ffe/siteui/vlv3/d1532433-07b1-4e39-a920-0f08b81a489e/67033404-2df8-42e0-a5a0-4c8288b4da2c/IN-en-20231120-popsignuptwoweeks-perspective_alpha_website_large.jpg' alt='bg-cover' />
 
-            <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(0, 0, 0, .75)" }} className='absolute bg-black rounded-md top-[20%] flex flex-col gap-4 p-4 m-4 w-1/4 mx-auto text-white'>
+            <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(0, 0, 0, .75)" }} className='absolute bg-black rounded-md top-[16%] flex flex-col gap-4 p-4 m-4 w-1/4 mx-auto text-white'>
                 <h1 className='m-2 text-2xl'>
                     {
                         isSignInForm ? "Sign In" : "Sign Up"
