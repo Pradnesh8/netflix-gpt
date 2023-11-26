@@ -34,7 +34,7 @@ const Header = () => {
         });
     }
     return (
-        <div className='w-screen absolute flex justify-between bg-gradient-to-b from-black items-center'>
+        <div className='w-full absolute flex justify-between bg-gradient-to-b from-black items-center'>
             <img className='w-56 ml-2 mt-1 z-10' src={LOGO} alt="logo" />
             {
                 user && (
