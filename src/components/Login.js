@@ -6,6 +6,7 @@ import { auth } from '../utils/firebase';
 import { useDispatch } from 'react-redux';
 import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
+import { DEFAULT_AVATAR } from '../utils/constants';
 
 const Login = () => {
     const dispatch = useDispatch();
@@ -47,7 +48,6 @@ const Login = () => {
                     console.log("signed in user", user);
                     email.current.value = "";
                     password.current.value = "";
-                    navigate("/browse")
                 })
                 .catch((error) => {
                     const errorCode = error.code;
@@ -69,7 +69,7 @@ const Login = () => {
                     const user = userCredential.user;
                     console.log("signed up user", user);
                     updateProfile(user, {
-                        displayName: name.current.value, photoURL: "https://occ-0-2186-2164.1.nflxso.net/dnm/api/v6/K6hjPJd6cR6FpVELC5Pd6ovHRSk/AAAABY20DrC9-11ewwAs6nfEgb1vrORxRPP9IGmlW1WtKuaLIz8VxCx5NryzDK3_ez064IsBGdXjVUT59G5IRuFdqZlCJCneepU.png?r=229"
+                        displayName: name.current.value, photoURL: DEFAULT_AVATAR
                     }).then(() => {
                         const { uid, photoURL, displayName } = auth.currentUser;
                         const _email = auth.currentUser.email;
@@ -78,7 +78,6 @@ const Login = () => {
                         email.current.value = "";
                         password.current.value = "";
                         cpassword.current.value = "";
-                        navigate("/browse")
                     }).catch((error) => {
                         setErrMessage(error.message);
                     });
