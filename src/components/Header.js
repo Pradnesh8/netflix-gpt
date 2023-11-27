@@ -34,14 +34,14 @@ const Header = () => {
         });
     }
     return (
-        <div className='w-full absolute flex justify-between bg-gradient-to-b from-black items-center'>
-            <img className='w-56 ml-2 mt-1 z-10' src={LOGO} alt="logo" />
+        <div className='w-full absolute flex justify-between bg-gradient-to-b from-black items-center z-20'>
+            <img className='w-56 ml-2 mt-1' src={LOGO} alt="logo" />
             {
                 user && (
                     <div className='flex mr-6 items-center'>
                         <img src={user.photoURL} className='mr-3' alt="user-photo" />
                         <div className='flex flex-col'>
-                            <p className='text-lg font-medium'>
+                            <p className='text-lg font-medium text-white'>
                                 {user.displayName}
                             </p>
                             <button className='text-xs text-white' onClick={handleSignOut}>
