@@ -45,7 +45,6 @@ const Login = () => {
                     const { uid, photoURL, displayName } = user;
                     const _email = auth.currentUser.email;
                     dispatch(addUser({ uid: uid, displayName: displayName, email: _email, photoURL: photoURL }));
-                    console.log("signed in user", user);
                     email.current.value = "";
                     password.current.value = "";
                 })
@@ -67,7 +66,6 @@ const Login = () => {
             createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
                 .then((userCredential) => {
                     const user = userCredential.user;
-                    console.log("signed up user", user);
                     updateProfile(user, {
                         displayName: name.current.value, photoURL: DEFAULT_AVATAR
                     }).then(() => {

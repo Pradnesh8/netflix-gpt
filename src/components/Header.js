@@ -14,7 +14,6 @@ const Header = () => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
             if (user) {
                 const { uid, displayName, email, photoURL } = user;
-                console.log("logged In");
                 dispatch(addUser({ uid: uid, displayName: displayName, email: email, photoURL: photoURL }))
                 navigate("/browse")
             } else {
