@@ -4,7 +4,7 @@ export const API_OPTIONS = {
     method: 'GET',
     headers: {
         accept: 'application/json',
-        Authorization: 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5YzFjZjIzNDY3Njc2NDIxZWM0NzY5YTk3NjBjNDY0MyIsInN1YiI6IjY0ZGI3N2VhNzcxOWQ3MDEzZGQ2ZGI2ZCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.anpEGzXZTsOfBwB98EmYkPmq8WQxC8s8rEbUma8R8JQ'
+        Authorization: 'Bearer ' + process.env.REACT_APP_TMDB_KEY
     }
 };
 export const IMG_CDN_URL = "https://image.tmdb.org/t/p/w500"
@@ -25,3 +25,5 @@ export const languages = [
 ]
 
 export const BG_URL = "https://assets.nflxext.com/ffe/siteui/vlv3/d1532433-07b1-4e39-a920-0f08b81a489e/67033404-2df8-42e0-a5a0-4c8288b4da2c/IN-en-20231120-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+
+export const OPENAI_KEY = process.env.REACT_APP_OPENAI_KEY;
