@@ -91,9 +91,9 @@ const Login = () => {
     return (
         <div className='relative bg-gradient-to-b from-black to-gray-900 flex justify-center overflow-x-hidden'>
             <Header />
-            <img className='opacity-60' src={BG_URL} alt='bg-cover' />
+            <img className='opacity-60 h-screen md:h-auto object-cover md:object-center' src={BG_URL} alt='bg-cover' />
 
-            <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(0, 0, 0, .75)" }} className='absolute bg-black rounded-md top-[16%] flex flex-col gap-4 p-4 m-4 w-1/4 mx-auto text-white'>
+            <form onSubmit={(e) => e.preventDefault()} style={{ backgroundColor: "rgba(0, 0, 0, .75)" }} className='absolute bg-black rounded-md top-[16%] flex flex-col gap-4 p-4 m-4 w-full md:w-1/4 mx-auto text-white'>
                 <h1 className='m-2 text-2xl'>
                     {
                         isSignInForm ? "Sign In" : "Sign Up"
