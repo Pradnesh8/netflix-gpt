@@ -32,8 +32,8 @@ const GptSearchBar = () => {
     return (
         <>
             {/* <img className='opacity-80 -z-10 absolute' src={BG_URL} alt='bg-cover' /> */}
-            <div className='pt-[8%] flex justify-center bg-gradient-to-r from-black'>
-                <form onSubmit={(e) => e.preventDefault()} className='w-1/2 bg-black grid grid-cols-12 p-2 rounded-md'>
+            <div className='pt-[34%] md:pt-[8%] flex justify-center bg-gradient-to-r from-black to-slate-700'>
+                <form onSubmit={(e) => e.preventDefault()} className='w-full mx-2 md:mx-0 md:w-1/2 bg-black grid grid-cols-12 p-2 rounded-md'>
                     <input ref={searchStr} className='col-span-9 px-4 py-2 mr-2 rounded-md' placeholder={lang[langKey].gptSearchPlaceholder} type="text" name="search" id="search" />
                     <button onClick={handleSearchRecommendations} className='col-span-3 px-4 py-2 bg-red-700 rounded-md text-white'>{lang[langKey].search}</button>
                 </form>

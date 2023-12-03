@@ -43,30 +43,32 @@ const Header = () => {
         dispatch(changeLanguage(e.target.value));
     }
     return (
-        <div className='w-full absolute flex justify-between bg-gradient-to-b from-black items-center z-20'>
-            <img className='w-56 ml-2 mt-1' src={LOGO} alt="logo" />
+        <div className='w-full bg-black md:bg-transparent md:bg-gradient-to-b from-black  absolute flex flex-col md:flex-row justify-between items-center z-20 pb-3 md:p-0'>
+            <img className='w-36 md:w-56 ml-2 mt-1' src={LOGO} alt="logo" />
             {
                 user && (
-                    <div className='flex mr-6 items-center'>
+                    <div className='flex gap-6 md:gap-0 m-0 md:mr-6 items-center text-sm md:text-base'>
                         {
                             showGptPage &&
-                            <select className='px-2 py-2 bg-slate-700 text-white rounded-md mr-3' onChange={handleChangeLanguage} value={language}>
+                            <select className='px-2 py-2 cursor-pointer bg-slate-800 text-white rounded-md mr-3' onChange={handleChangeLanguage} value={language}>
                                 {
                                     languages.map(language => <option key={language.identifier} value={language.identifier}>{language.name}</option>)
                                 }
                             </select>
                         }
-                        <button className='px-4 py-2 bg-slate-700 text-white rounded-md mr-3' onClick={handleToggleSearch}>
+                        <button className='px-4 py-2 bg-slate-800 text-white rounded-md mr-3' onClick={handleToggleSearch}>
                             {showGptPage ? "Home" : "🔍 GPT search"}
                         </button>
-                        <img src={user.photoURL} className='mr-3' alt="user-photo" />
-                        <div className='flex flex-col'>
-                            <p className='text-lg font-medium text-white'>
-                                {user.displayName}
-                            </p>
-                            <button className='text-xs text-white' onClick={handleSignOut}>
-                                Sign out
-                            </button>
+                        <div className='flex'>
+                            <img src={user.photoURL} className='mr-3 w-8 md:w-10 rounded-md' alt="user-photo" />
+                            <div className='flex flex-col'>
+                                <p className='text-sm md:text-lg font-medium text-white'>
+                                    {user.displayName}
+                                </p>
+                                <button className='text-xs text-white' onClick={handleSignOut}>
+                                    Sign out
+                                </button>
+                            </div>
                         </div>
                     </div>
                 )
