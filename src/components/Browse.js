@@ -11,7 +11,11 @@ import { useSelector } from 'react-redux';
 
 
 const Browse = () => {
+    const movieError = useSelector(store => store.movies?.errorFound);
     const showGptPage = useSelector(store => store.gpt?.showGptSearch)
+    if (movieError) {
+        alert("Server is facing issue, Please try again after sometime.")
+    }
     useNowPlayingMovies();
     usePopularMovies();
     useTopRatedMovies();

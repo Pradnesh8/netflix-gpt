@@ -6,7 +6,8 @@ const gptSlice = createSlice({
         showGptSearch: false,
         recommendedMovies: null,
         recommendedMoviesData: null,
-        resultsLoading: false
+        resultsLoading: false,
+        errorFound: null
     },
     reducers: {
         toggleShowGpt: (state) => {
@@ -23,9 +24,19 @@ const gptSlice = createSlice({
             state.recommendedMovies = null;
             state.recommendedMoviesData = null;
             state.resultsLoading = false;
+        },
+        addError: (state, action) => {
+            if (!action.payload) {
+                state.errorFound = null
+            } else {
+                state.errorFound = {
+                    errorCode: action.payload.errorCode,
+                    errorMessage: action.payload.errorMessage
+                };
+            }
         }
     }
 })
 
-export const { toggleShowGpt, addRecommendedMovies, toggleGptResultsLoading, resetResults } = gptSlice.actions;
+export const { addError, toggleShowGpt, addRecommendedMovies, toggleGptResultsLoading, resetResults } = gptSlice.actions;
 export default gptSlice.reducer
