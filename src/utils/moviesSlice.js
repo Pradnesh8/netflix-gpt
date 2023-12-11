@@ -8,6 +8,7 @@ const moviesSlice = createSlice({
         topRatedMovies: null,
         upcomingMovies: null,
         videoTrailer: null,
+        movieTrailer: null,
         errorFound: null,
     },
     reducers: {
@@ -23,8 +24,12 @@ const moviesSlice = createSlice({
         addUpcomingMovies: (state, action) => {
             state.upcomingMovies = action.payload;
         },
+        // For Background of landing page
         addVideoTrailer: (state, action) => {
             state.videoTrailer = action.payload;
+        },
+        addMovieTrailer: (state, action) => {
+            state.movieTrailer = action.payload;
         },
         addError: (state, action) => {
             state.errorFound = action.payload;
@@ -32,5 +37,5 @@ const moviesSlice = createSlice({
     }
 })
 
-export const { addError, addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies, addVideoTrailer } = moviesSlice.actions;
+export const { addError, addMovieTrailer, addNowPlayingMovies, addPopularMovies, addTopRatedMovies, addUpcomingMovies, addVideoTrailer } = moviesSlice.actions;
 export default moviesSlice.reducer;
