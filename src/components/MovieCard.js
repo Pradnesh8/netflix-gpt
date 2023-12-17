@@ -37,10 +37,10 @@ const MovieCard = ({ movie }) => {
                                 <div className='bg-slate-800 text-white flex-[50%] md:flex-[40%] max-h-max md:h-full flex flex-col gap-2 pt-2 md:px-4 md:mt-6'>
                                     <h1 className='font-normal text-lg md:font-semibold md:text-3xl'>{movie?.title || movie?.original_title}</h1>
                                     <div className='flex justify-center gap-3'>
-                                        <p>
-                                            🔥{movie?.popularity}
+                                        <p title='Popularity'>
+                                            🔥{Math.round(movie?.popularity)}
                                         </p>
-                                        <p>
+                                        <p title='Rating'>
                                             Rating: {movie?.vote_average.toFixed(2)} / 10
                                         </p>
                                     </div>
