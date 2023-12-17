@@ -32,7 +32,7 @@ const MovieCard = ({ movie }) => {
                             </button>
                             <div className="p-0 text-center md:p-2 flex flex-col md:flex-row md:justify-between md:items-start bg-slate-800">
                                 <div className='flex-[50%] md:flex-[60%]'>
-                                    <VideoTrailer movieId={movie?.id} />
+                                    <VideoTrailer movieId={movie?.id} movie_poster={movie?.poster_path} />
                                 </div>
                                 <div className='bg-slate-800 text-white flex-[50%] md:flex-[40%] max-h-max md:h-full flex flex-col gap-2 pt-2 md:px-4 md:mt-6'>
                                     <h1 className='font-normal text-lg md:font-semibold md:text-3xl'>{movie?.title || movie?.original_title}</h1>

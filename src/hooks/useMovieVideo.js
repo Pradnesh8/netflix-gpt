@@ -17,6 +17,7 @@ const useMovieVideo = (movieId) => {
             dispatch(addMovieTrailer(trailer));
             errorFound && dispatch(addError(null))
         } catch (err) {
+            dispatch(addMovieTrailer(null))
             dispatch(addError(err.message));
         }
     }
